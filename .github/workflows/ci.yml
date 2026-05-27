@@ -1,0 +1,25 @@
+name: CI BNR
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descarregar el codi
+        uses: actions/checkout@v4
+
+      - name: Preparar PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Instal·lar dependències
+        run: composer install
+
+      - name: Executar els tests
+        run: ./vendor/bin/phpunit
